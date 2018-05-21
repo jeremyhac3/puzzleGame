@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -55,6 +56,8 @@ public class SliderPuzzleGame extends Application {
         primaryStage.setTitle("Slider Puzzle Game");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        createInitialMessage();
 
         for (int i = 0; i < puzzleBoard.getRows(); i++) {
             for (int j = 0; j < puzzleBoard.getCols(); j++) {
@@ -115,7 +118,7 @@ public class SliderPuzzleGame extends Application {
                     puzzleBoard.setPuzzleString(view.getPuzzleList().getSelectionModel().getSelectedItem());
                     puzzleBoard.initBoard();
                     randomizeBlankPiece();
-                  //  randomizeAllPieces();
+                    randomizeAllPieces();
                     updateTimer.play();
 
                 }
@@ -150,6 +153,18 @@ public class SliderPuzzleGame extends Application {
                     }
                 }));
         updateTimer.setCycleCount(Timeline.INDEFINITE);
+    }
+
+    public void createInitialMessage() {
+        Alert info = new Alert(Alert.AlertType.INFORMATION);
+        info.setTitle("Introduction");
+        info.setHeaderText("Welcome to the Slider Puzzle Game!\n");
+        info.setContentText("- Select a puzzle from the list of available puzzles.\n\n- Press the 'Start' button to initiate the puzzle and start the timer. \n\n" +
+                "- Click on a tile that is adjacent to the black tile to swap it.  \n\n " +
+                "- To win, match all the board pieces to the corresponding positions in the top-right corner. \n\n " +
+                "- When all pieces match, the game will complete.  The top 5 best scores are recorded in the high scores table. \n\n " +
+                "Good luck!!!");
+        info.showAndWait();
     }
 
     public void swap(int row, int col) {
